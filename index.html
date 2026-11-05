@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="ca">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Simulador interactiu de l’aparell respiratori per a 3r d’ESO." />
+    <title>Explora l’aparell respiratori · 2.0</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="app-header">
+        <div>
+          <p class="eyebrow">LABORATORI VIRTUAL</p>
+          <h1>Explora l’aparell respiratori</h1>
+          <p class="subtitle">Explora les estructures i observa què passa quan l’oxigen i el diòxid de carboni s’intercanvien als alvèols.</p>
+        </div>
+        <div class="header-mark" aria-hidden="true">BIO</div>
+      </header>
+
+      <nav class="app-nav" aria-label="Navegació de l’aplicació">
+        <button class="nav-button active" id="exploreButton" type="button">Explora l’aparell respiratori</button>
+        <button class="nav-button" id="quizButton" type="button">Posa’t a prova</button>
+      </nav>
+
+      <section class="workspace" aria-label="Explorador de l’aparell respiratori">
+        <div class="illustration-card">
+          <div class="illustration-heading">
+            <h2>Selecciona una estructura</h2>
+            <p>Les zones s’activen quan hi passes per sobre.</p>
+          </div>
+          <div class="body-map" id="bodyMap">
+            <div class="respiratory-layers" role="img" aria-label="Il·lustració de l’aparell respiratori humà">
+              <img class="respiratory-layer layer-background" src="assets/aparell-respiratori-fons.jpg" alt="" />
+              <img class="respiratory-layer layer-anatomy" src="assets/aparell-respiratori.svg" alt="" />
+            </div>
+            <button class="hotspot hotspot-nasal" data-organ="fosses-nasals" aria-label="Selecciona les fosses nasals"></button>
+            <button class="hotspot hotspot-pharynx" data-organ="faringe" aria-label="Selecciona la faringe"></button>
+            <button class="hotspot hotspot-larynx" data-organ="laringe" aria-label="Selecciona la laringe"></button>
+            <button class="hotspot hotspot-trachea" data-organ="traquea" aria-label="Selecciona la tràquea"></button>
+            <button class="hotspot hotspot-bronchi" data-organ="bronquis" aria-label="Selecciona els bronquis"></button>
+            <button class="hotspot hotspot-left-lung" data-organ="pulmo-esquerre" aria-label="Selecciona el pulmó esquerre"></button>
+            <button class="hotspot hotspot-right-lung" data-organ="pulmo-dret" aria-label="Selecciona el pulmó dret"></button>
+            <button class="hotspot hotspot-bronchioles" data-organ="bronquiols" aria-label="Selecciona els bronquíols"></button>
+            <button class="hotspot hotspot-alveoli" data-organ="alveols" aria-label="Selecciona els alvèols"></button>
+            <button class="alveoli-zoom" id="alveoliZoom" type="button">Ampliació</button>
+            <button class="hotspot hotspot-diaphragm" data-organ="diafragma" aria-label="Selecciona el diafragma"></button>
+          </div>
+        </div>
+
+        <aside class="info-panel" id="infoPanel" aria-live="polite">
+          <div class="info-panel-topline"><span class="status-dot"></span><span id="panelStatus">Exploració guiada</span></div>
+          <div id="panelContent" class="panel-content">
+            <p class="panel-kicker">APARELL RESPIRATORI</p>
+            <h2>Tria una part del dibuix</h2>
+            <p>Quan seleccionis una estructura, aquí hi trobaràs el seu nom, una descripció i la seva funció principal.</p>
+          </div>
+        </aside>
+      </section>
+
+      <div class="gas-module gas-modal" id="gasModule" hidden role="dialog" aria-modal="true" aria-labelledby="gasTitle">
+        <div class="module-heading">
+          <div>
+            <p class="eyebrow">MÒDUL 2 · MICROESCALA</p>
+            <h2 id="gasTitle">Què passa dins d’un alvèol?</h2>
+            <p>Observa com l’oxigen passa a la sang i el diòxid de carboni fa el camí contrari.</p>
+          </div>
+          <button class="gas-close" id="gasClose" type="button" aria-label="Tanca l’ampliació">Tanca</button>
+        </div>
+        <div class="gas-workspace">
+          <div class="alveolus-scene" aria-label="Simulació de l’intercanvi de gasos entre un alvèol i un capil·lar">
+            <div class="alveolus" aria-hidden="true"><span class="alveolus-label">Alvèol</span></div>
+            <div class="capillary" aria-hidden="true"><span class="capillary-label">Capil·lar sanguini</span></div>
+            <span class="particle oxygen oxygen-1" aria-hidden="true">O₂</span>
+            <span class="particle oxygen oxygen-2" aria-hidden="true">O₂</span>
+            <span class="particle oxygen oxygen-3" aria-hidden="true">O₂</span>
+            <span class="particle oxygen oxygen-4" aria-hidden="true">O₂</span>
+            <span class="particle oxygen oxygen-5" aria-hidden="true">O₂</span>
+            <span class="particle carbon carbon-1" aria-hidden="true">CO₂</span>
+            <span class="particle carbon carbon-2" aria-hidden="true">CO₂</span>
+            <span class="particle carbon carbon-3" aria-hidden="true">CO₂</span>
+            <span class="particle carbon carbon-4" aria-hidden="true">CO₂</span>
+            <span class="particle carbon carbon-5" aria-hidden="true">CO₂</span>
+            <div class="gas-arrow arrow-oxygen" aria-hidden="true">→</div>
+            <div class="gas-arrow arrow-carbon" aria-hidden="true">←</div>
+          </div>
+          <aside class="gas-explanation" id="gasExplanation" aria-live="polite">
+            <p class="panel-kicker">INTERCANVI DE GASOS</p>
+            <h3>Prepara la simulació</h3>
+            <p>L’aire dels alvèols i la sang dels capil·lars estan molt a prop. Quan comencis, veuràs el recorregut dels dos gasos.</p>
+            <div class="gas-legend"><span><i class="legend-dot oxygen-dot"></i>Oxigen</span><span><i class="legend-dot carbon-dot"></i>Diòxid de carboni</span></div>
+          </aside>
+        </div>
+      </div>
+
+      <footer class="app-footer">
+        <span>3r d’ESO · Biologia i geologia</span>
+        <span>Versió 2.0 · Mòdul d’intercanvi de gasos</span>
+      </footer>
+    </main>
+    <script src="app.js" defer></script>
+  </body>
+</html>
